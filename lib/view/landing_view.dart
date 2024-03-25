@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:selenium_chat/config/app_settings.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -17,7 +18,7 @@ class LandingViewState extends State<LandingView> {
     developer.log('LandingViewState - initState()');
     super.initState();
     //Few seconds of duration for the view
-    Timer(const Duration(seconds: 6), _runApp);
+    Timer(const Duration(seconds: 2), _runApp);
   }
 
   _runApp() {
@@ -67,7 +68,7 @@ class LandingViewState extends State<LandingView> {
     const circularIndicator = Center(child: CircularProgressIndicator(color: Colors.deepPurpleAccent));
 
     return Scaffold(
-        backgroundColor: Color.fromRGBO(38, 38, 38, 1),
+        backgroundColor: AppSettings.BG_COLOR,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
