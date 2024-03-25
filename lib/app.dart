@@ -6,6 +6,9 @@ import 'dart:developer' as developer;
 import 'view/landing_view.dart';
 import 'view/authenticate/login_view.dart';
 
+//ViewModels
+import 'view_model/login_view_model.dart';
+
 class App{
 
   //Properties
@@ -19,7 +22,7 @@ class App{
       initialRoute: '/',
       routes: {
         '/': (context) => LandingView(),
-        '/login': (context) => LoginView(),
+        '/login': (context) => ChangeNotifierProvider(create: (context) => LoginViewModel(), child: const LoginView()),
       },
     );
   }

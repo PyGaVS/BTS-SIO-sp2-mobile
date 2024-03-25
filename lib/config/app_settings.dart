@@ -12,7 +12,8 @@ class AppSettings {
 
 
   //For the API REST consuming
-  static const String API_URI = 'Alizon.btssioroc.com';
+  static const String API_URI = '192.168.200.183';
+  static const int API_PORT = 8000;
   static const String API_PATH = 'api';
   static const String API_VERSION = 'v1';
   static const Color BG_COLOR = Color.fromRGBO(38, 38, 38, 1);

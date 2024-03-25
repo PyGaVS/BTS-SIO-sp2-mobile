@@ -53,9 +53,12 @@ class LandingViewState extends State<LandingView> {
   Widget build(BuildContext context) {
     developer.log('LandingViewState - build()');
     final applicationName = Container(
-        color: Colors.deepPurpleAccent,
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         margin: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.deepPurpleAccent
+        ),
         child: const Text('Selenium', style: TextStyle(
             fontSize: 50,
             fontWeight: FontWeight.bold,

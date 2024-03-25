@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-//import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
 import 'package:selenium_chat/config/app_settings.dart';
+import 'package:selenium_chat/view_model/login_view_model.dart';
 
 class LoginView extends StatefulWidget {
   //Properties
@@ -11,7 +12,7 @@ class LoginView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new LoginViewState();
+    return LoginViewState();
   }
 
 //Getters and setters
@@ -30,28 +31,32 @@ class LoginViewState extends State<StatefulWidget> {
   final TextEditingController _tecPassword = TextEditingController();
 
   // The ViewModel that is used for data and commands binding
-  //late LoginViewModel _lvm;
+  late LoginViewModel _lvm;
 
   @override
   void initState(){
     developer.log('LoginViewState - initState()');
     // Get the instance of the LoginViewModel already created in the routes
-    //this._lvm=Provider.of<LoginViewModel>(context, listen: false);
+    _lvm=Provider.of<LoginViewModel>(context, listen: false);
     // Flutter doc: init parent class always at the end of this method
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     if(AppSettings.APP_DEBUG){
-      //this._tecUsername.text = 'Test User';
+      _tecUsername.text = 'Test User';
       this._tecPassword.text = '12345678';
     }
     developer.log('LoginViewState - build()');
 
     final applicationName = Container(
-        color: Colors.deepPurpleAccent,
+        //color: Colors.deepPurpleAccent,
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         margin: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.deepPurpleAccent
+        ),
         child: const Text('Selenium', style: TextStyle(
             fontSize: 50,
             fontWeight: FontWeight.bold,
@@ -66,7 +71,7 @@ class LoginViewState extends State<StatefulWidget> {
     final username = Container(
         padding: const EdgeInsets.all(0),
         child: TextFormField(
-          controller: _tecUsername,
+          controller: this._tecUsername,
           style: const TextStyle(color: Colors.white),
           autofocus: true,
           decoration: const InputDecoration(
@@ -91,9 +96,8 @@ class LoginViewState extends State<StatefulWidget> {
 
     final submit = ElevatedButton(onPressed: (){
       developer.log("LoginView - Username ${_tecUsername.text} / Password ${_tecPassword.text}");
-      //Future<bool> isUserConnected = _lvm.signInButtonOnClickCommand(_tecUsername.text, _tecPassword.text);
-      bool isUserConnected = false;
-      /*
+      Future<bool> isUserConnected = _lvm.signInButtonOnClickCommand(_tecUsername.text, _tecPassword.text);
+
       isUserConnected.then((resp){
         if (resp){
           //Go to home view
@@ -103,10 +107,9 @@ class LoginViewState extends State<StatefulWidget> {
           developer.log("failed credentials");
         }
       });
-      */
     },
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue.shade500),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white)),
       child: const Text('Se connecter'),
     );
