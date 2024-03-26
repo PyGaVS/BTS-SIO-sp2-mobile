@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selenium_chat/view/component/nav_drawable_widget.dart';
 import 'package:selenium_chat/config/app_settings.dart';
 import 'dart:developer' as developer;
 
@@ -33,6 +34,8 @@ class HomeViewState extends State<StatefulWidget> {
             title: const Text('Selenium')
         ),
         backgroundColor: AppSettings.BG_COLOR,
+        body: Column(),
+        drawer: const NavDrawableWidget()
     );
   }
 }

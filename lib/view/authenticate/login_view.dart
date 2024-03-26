@@ -44,7 +44,7 @@ class LoginViewState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     if(AppSettings.APP_DEBUG){
-      _tecUsername.text = 'Test User';
+      _tecUsername.text = 'usersio';
       this._tecPassword.text = '12345678';
     }
     developer.log('LoginViewState - build()');

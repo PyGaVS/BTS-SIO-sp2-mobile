@@ -8,11 +8,41 @@ class Api {
   static String token = ''; //Keep the token
 
   //Methods
+  static Future<ApiResponse> get({required String? route, bool token=false}) async {
+    Status status = Status.BUSY;
+    developer.log('Api - get()');
+    if (route == null){
+      developer.log('Api - get(): \n\tNo route specified !');
+      return ApiResponse(Status.ERROR, null, 'No route specified');
+    }
+
+    final uri = Uri(scheme: 'http',
+        host: AppSettings.API_URI,
+        port: AppSettings.API_PORT,
+        path: '${AppSettings.API_PATH}/${AppSettings.API_VERSION}$route');
+    developer.log('Api - get(): \n\t Uri: $uri');
+
+    final body = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ${Api.token}'};
+    final resp = await http.get(uri, headers: body);
+
+    switch (resp.statusCode) {
+      case 200:
+        status = Status.COMPLETED;
+        developer.log('Api - get() : \n\tAPI is responding : ${resp.statusCode} - ${resp.body}');
+        break;
+
+      default:
+        status = Status.ERROR;
+        developer.log('Api - get(): \n\tAPI respond with an error : ${resp.statusCode} / ${resp.body}');
+    }
+
+    return ApiResponse(status, resp.body, resp.statusCode.toString());
+  }
+
   static Future<ApiResponse> post({required String? route, Map<String, String>? bodyParams, bool token=false}) async {
     Status status = Status.BUSY;
     developer.log('Api - post()');
     if (route != null) {
-      developer.log(route);
       final uri = Uri(scheme: 'http',
           host: AppSettings.API_URI,
           port: AppSettings.API_PORT,

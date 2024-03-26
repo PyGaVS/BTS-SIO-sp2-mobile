@@ -5,6 +5,7 @@ import 'dart:developer' as developer;
 // Views
 import 'view/landing_view.dart';
 import 'view/authenticate/login_view.dart';
+import 'view/home/home_view.dart';
 
 //ViewModels
 import 'view_model/login_view_model.dart';
@@ -23,6 +24,7 @@ class App{
       routes: {
         '/': (context) => LandingView(),
         '/login': (context) => ChangeNotifierProvider(create: (context) => LoginViewModel(), child: const LoginView()),
+        '/home': (context) => HomeView(),
       },
     );
   }
