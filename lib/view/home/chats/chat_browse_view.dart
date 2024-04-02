@@ -40,9 +40,10 @@ class ChatBrowseViewState extends State<StatefulWidget> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    leading: Icon(Icons.mark_chat_unread_rounded, color: Colors.white),
+                    leading: const Icon(Icons.mark_chat_unread_rounded, color: Colors.white),
                     title: Text(snapshot.data![index].getName(),
                     style: const TextStyle(color: Colors.white)),
+                    //subtitle: Text(snapshot.data![index].getLastMessage()),
                   );
                 },
               );
