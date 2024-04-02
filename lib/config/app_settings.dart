@@ -12,7 +12,7 @@ class AppSettings {
 
 
   //For the API REST consuming
-  static const String API_URI = '192.168.200.183';
+  static const String API_URI = '172.21.5.13';
   static const int API_PORT = 8000;
   static const String API_PATH = 'api';
   static const String API_VERSION = 'v1';

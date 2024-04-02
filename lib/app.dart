@@ -9,6 +9,7 @@ import 'view/home/home_view.dart';
 
 //ViewModels
 import 'view_model/login_view_model.dart';
+import 'view_model/home_view_model.dart';
 
 class App{
 
@@ -24,7 +25,7 @@ class App{
       routes: {
         '/': (context) => LandingView(),
         '/login': (context) => ChangeNotifierProvider(create: (context) => LoginViewModel(), child: const LoginView()),
-        '/home': (context) => HomeView(),
+        '/home': (context) => ChangeNotifierProvider(create: (context) => HomeViewModel(), child: const HomeView()),
       },
     );
   }

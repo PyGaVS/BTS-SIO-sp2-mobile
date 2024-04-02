@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:selenium_chat/view/component/nav_drawable_widget.dart';
 import 'package:selenium_chat/config/app_settings.dart';
 import 'dart:developer' as developer;
+import 'package:provider/provider.dart';
+import 'package:selenium_chat/view/home/chats/chat_browse_view.dart';
+
+import 'package:selenium_chat/view_model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
   //Properties
@@ -10,7 +14,6 @@ class HomeView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    developer.log('HomeView - createState()');
     return HomeViewState();
   }
 
@@ -23,19 +26,48 @@ class HomeView extends StatefulWidget {
 class HomeViewState extends State<StatefulWidget> {
   //Properties
   //late Scaffold _screen; // No constructor
+  late HomeViewModel _hvm;
+
+  @override
+  void initState(){
+    developer.log('HomeViewState - initState()');
+    _hvm = Provider.of<HomeViewModel>(context, listen: false);
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     developer.log('HomeViewState - build()');
+    _hvm.initBrowChats();
 
-    return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.deepPurpleAccent,
-            title: const Text('Selenium')
-        ),
-        backgroundColor: AppSettings.BG_COLOR,
-        body: Column(),
-        drawer: const NavDrawableWidget()
+    return DefaultTabController(length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+              backgroundColor: Colors.deepPurpleAccent,
+              title: const Text('Selenium'),
+              bottom: const TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.forum_sharp, color: Colors.white)),
+                    Tab(icon: Icon(Icons.group_sharp, color: Colors.white)),
+                  ]
+              )
+
+          ),
+          backgroundColor: AppSettings.BG_COLOR,
+          body: const TabBarView(
+            children: <Widget>[
+              Column(
+                children: [ChatBrowseView()],
+              ),
+              Column(
+                children: []
+              )
+            ],
+          ),
+          drawer: const NavDrawableWidget()
+      )
     );
+
   }
 }
