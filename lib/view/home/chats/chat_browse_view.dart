@@ -39,11 +39,14 @@ class ChatBrowseViewState extends State<StatefulWidget> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
+                  String lastMessage = snapshot.data![index].getLastMessage();
                   return ListTile(
                     leading: const Icon(Icons.mark_chat_unread_rounded, color: Colors.white),
                     title: Text(snapshot.data![index].getName(),
                     style: const TextStyle(color: Colors.white)),
-                    //subtitle: Text(snapshot.data![index].getLastMessage()),
+                    subtitle: Text(lastMessage.length > 91 ? "${lastMessage.substring(0, 90)}..." : lastMessage,
+                      style: const TextStyle(color: Colors.grey)),
+                    onTap: (){},
                   );
                 },
               );

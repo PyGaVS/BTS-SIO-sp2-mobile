@@ -21,6 +21,11 @@ class HomeViewModel extends ChangeNotifier {
     //return ChatDAO.all();
   }
 
+  Future<void> showChat() async{
+    developer.log('showChat()');
+
+  }
+
   getChats(){
     return chats;
   }

@@ -28,7 +28,7 @@ class Api {
     switch (resp.statusCode) {
       case 200:
         status = Status.COMPLETED;
-        developer.log('Api - get() : \n\tAPI is responding : ${resp.statusCode} - ${resp.body}');
+        developer.log('Api - get() : \n\tAPI is responding : ${resp.statusCode} - {resp.body}');
         break;
 
       default:

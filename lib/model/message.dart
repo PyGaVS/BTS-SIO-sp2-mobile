@@ -6,6 +6,10 @@ class Message {
   Message({required this.id, required this.content, required this.createdAt});
 
   factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(id: json['id'], content: json['content'], createdAt: json['created_at']);
+    return Message(
+        id: json['id'],
+        content: json['content'],
+        createdAt: json['created_at']
+    );
   }
 }

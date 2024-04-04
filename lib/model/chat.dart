@@ -5,15 +5,15 @@ class Chat {
   int id;
   String name;
   String createdAt;
-  //List<Message> messages;
-  Message lastMessage;
+  List<Message>? messages;
+  String lastMessage;
 
   Chat({
     required this.id,
     required this.name,
     required this.createdAt,
-    //required this.messages,
     required this.lastMessage,
+    this.messages,
   });
 
   getId(){
@@ -26,7 +26,7 @@ class Chat {
 
 
   getLastMessage(){
-    return lastMessage.content;
+    return lastMessage;
   }
 
   factory Chat.fromJson(Map<String, dynamic> json) {
@@ -35,7 +35,7 @@ class Chat {
         name: json['name'],
         createdAt: json['created_at'],
         //messages: json['messages'],
-        lastMessage: Message.fromJson(json['last_message']),
+        lastMessage: json['last_message']['content'],
     );
   }
 }
