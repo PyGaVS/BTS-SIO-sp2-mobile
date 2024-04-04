@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 import 'package:selenium_chat/view_model/home_view_model.dart';
 import 'package:selenium_chat/model/chat.dart';
-
+import 'chat_view.dart';
 import 'package:provider/provider.dart';
 
 class ChatBrowseView extends StatefulWidget {
@@ -16,7 +16,7 @@ class ChatBrowseView extends StatefulWidget {
   }
 }
 
-class ChatBrowseViewState extends State<StatefulWidget> {
+class ChatBrowseViewState extends State<ChatBrowseView> {
 
   @override
   void initState() {
@@ -46,7 +46,22 @@ class ChatBrowseViewState extends State<StatefulWidget> {
                     style: const TextStyle(color: Colors.white)),
                     subtitle: Text(lastMessage.length > 91 ? "${lastMessage.substring(0, 90)}..." : lastMessage,
                       style: const TextStyle(color: Colors.grey)),
-                    onTap: (){},
+                    onTap: (){
+                      /*
+                      showModalBottomSheet(context: context,
+                        builder: (context) =>
+                            Padding(
+                                padding: EdgeInsets.zero,
+                                child: ChatView(hvm: hvm, chat: snapshot.data![index])
+                            )
+                      );
+                      */
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ChatView(hvm: hvm, chat: snapshot.data![index]))
+                      );
+
+                    },
                   );
                 },
               );

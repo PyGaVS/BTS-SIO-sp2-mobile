@@ -22,12 +22,23 @@ class NavDrawableWidget extends StatelessWidget {
             //items as ListTile
             ListTile(
               leading: const Icon(Icons.dashboard_sharp, color: Colors.white),
-              title: const Text('home', style: TextStyle(
+              title: const Text('Discussions', style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
               )),
               onTap: () => { Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false) },
             ),
+            ListTile(
+              leading: const Icon(Icons.logout_sharp, color: Colors.white),
+              title: const Text('Déconnexion', style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              )),
+              onTap: () => {
+                Auth.disconnectUser(),
+                Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/login')) },
+            ),
+
           ],
         )
     );
