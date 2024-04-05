@@ -47,15 +47,6 @@ class ChatBrowseViewState extends State<ChatBrowseView> {
                     subtitle: Text(lastMessage.length > 91 ? "${lastMessage.substring(0, 90)}..." : lastMessage,
                       style: const TextStyle(color: Colors.grey)),
                     onTap: (){
-                      /*
-                      showModalBottomSheet(context: context,
-                        builder: (context) =>
-                            Padding(
-                                padding: EdgeInsets.zero,
-                                child: ChatView(hvm: hvm, chat: snapshot.data![index])
-                            )
-                      );
-                      */
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ChatView(hvm: hvm, chat: snapshot.data![index]))

@@ -6,6 +6,7 @@ import 'dart:developer' as developer;
 class HomeViewModel extends ChangeNotifier {
 
   late Future<List<Chat>> chats;
+  late Future<Chat> chat;
 
   HomeViewModel(){}
 
@@ -21,8 +22,9 @@ class HomeViewModel extends ChangeNotifier {
     //return ChatDAO.all();
   }
 
-  Future<void> initShowChat() async{
+  Future<void> initShowChat(Chat chat) async{
     developer.log('initShowChat()');
+    this.chat = ChatDAO.get(chat.id);
   }
 
   Future<void> showChat() async{

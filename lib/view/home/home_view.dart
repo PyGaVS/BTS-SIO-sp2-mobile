@@ -45,6 +45,7 @@ class HomeViewState extends State<StatefulWidget> {
         child: Scaffold(
           appBar: AppBar(
               backgroundColor: Colors.deepPurpleAccent,
+              foregroundColor: Colors.white,
               title: const Text('Selenium'),
               bottom: const TabBar(
                   tabs: [

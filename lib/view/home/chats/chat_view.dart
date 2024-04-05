@@ -6,6 +6,7 @@ import 'package:selenium_chat/view_model/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/chat.dart';
+import '../../../model/message.dart';
 
 class ChatView extends StatefulWidget {
   //Properties
@@ -34,15 +35,33 @@ class ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) {
-    widget.hvm.initShowChat();
+    widget.hvm.initShowChat(widget.chat);
     developer.log('ChatViewState - build()');
 
     return Scaffold(
       backgroundColor: AppSettings.BG_COLOR,
       appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        title: Text(widget.chat.name)
+          backgroundColor: Colors.deepPurpleAccent,
+          foregroundColor: Colors.white,
+          title: Text(widget.chat.name)
       ),
+      body: FutureBuilder<Chat>(
+          future: widget.hvm.chat,
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return const Center(child: CircularProgressIndicator(color: Colors.white));
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data!.messages!.length,
+                  itemBuilder: (context, index){
+                    return ListTile(
+                        title: Text(snapshot.data!.messages![index].content)
+                    );
+                  }
+              );
+            }
+          }
+      )
     );
   }
 }
