@@ -1,7 +1,7 @@
 class Message {
   int id;
   String content;
-  DateTime createdAt;
+  String createdAt;
 
   Message({required this.id, required this.content, required this.createdAt});
 

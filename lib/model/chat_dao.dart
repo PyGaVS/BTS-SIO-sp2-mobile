@@ -22,16 +22,17 @@ class ChatDAO {
     //developer.log(data['messages'].toString());
     List data_messages = List<Map<String, dynamic>>.from(data['messages']);
     //developer.log(messages.toString());
+    List<Message> messages = [];
     for(var message in data_messages){
-      message = Message.fromJson(message);
+      messages.add(Message.fromJson(message)); //IL S'ARRÊTE LA
       developer.log(message.toString());
     }
-    data_messages.map<Message>((item) => Message.fromJson(item)); //IL S'ARRÊTE LA
+    //data_messages.map<Message>((item) => Message.fromJson(item)); //IL S'ARRÊTE LA
     Chat result = Chat(
       id: data['id'],
       name: data['name'],
       createdAt: data['created_at'],
-      messages: [],
+      messages: messages,
       lastMessage:data['last_message']['content'],
     );
     developer.log("ChatDAO - get() : $result");
