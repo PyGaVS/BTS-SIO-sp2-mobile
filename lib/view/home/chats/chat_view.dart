@@ -55,7 +55,9 @@ class ChatViewState extends State<ChatView> {
                   itemCount: snapshot.data!.messages!.length,
                   itemBuilder: (context, index){
                     return ListTile(
-                        title: Text(snapshot.data!.messages![index].content)
+                        title: Text(
+                            snapshot.data!.messages![index].content,
+                            style: const TextStyle(color: Colors.white))
                     );
                   }
               );
