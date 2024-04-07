@@ -4,6 +4,8 @@ import 'package:selenium_chat/config/app_settings.dart';
 import 'dart:developer' as developer;
 import 'package:selenium_chat/view_model/home_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:selenium_chat/model/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../model/chat.dart';
 import '../../../model/message.dart';
@@ -26,6 +28,7 @@ class ChatView extends StatefulWidget {
 
 class ChatViewState extends State<ChatView> {
   //Properties
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -51,11 +54,24 @@ class ChatViewState extends State<ChatView> {
             if (snapshot.data == null) {
               return const Center(child: CircularProgressIndicator(color: Colors.white));
             } else {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                //S'exécute après la construction de la liste
+                _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+              });
               return ListView.builder(
+                  controller: _scrollController,
                   itemCount: snapshot.data!.messages!.length,
                   itemBuilder: (context, index){
+                    Color bgColor = index % 2 == 0 ? const Color.fromRGBO(50, 50, 50, 1) : AppSettings.BG_COLOR;
+                    Color userColor = snapshot.data!.messages![index].getUser().getUsername() == Auth.username ?
+                      Colors.amber : Colors.white;
                     return ListTile(
+                        tileColor: bgColor,
                         title: Text(
+                          snapshot.data!.messages![index].getUser().getUsername(),
+                          style: TextStyle(color: userColor)
+                        ),
+                        subtitle: Text(
                             snapshot.data!.messages![index].content,
                             style: const TextStyle(color: Colors.white))
                     );

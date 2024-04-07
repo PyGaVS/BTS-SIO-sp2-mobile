@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth {
 
+  static String username = '';
+
   static Future<bool> attempt({required Map<String, String> credentials}) async {
     developer.log('Auth - attempt() : \n Credentials : ${credentials.toString()}');
     final resp = await Api.post(route: "/login", bodyParams: credentials);

@@ -102,6 +102,7 @@ class LoginViewState extends State<StatefulWidget> {
         if (resp){
           //Go to home view
           developer.log("user valid :");
+          _lvm.getUser();
           Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
         } else {
           developer.log("failed credentials");

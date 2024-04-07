@@ -2,7 +2,8 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:selenium_chat/config/app_settings.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:selenium_chat/model/auth.dart';
 
 
 class LandingView extends StatefulWidget {
@@ -29,12 +30,11 @@ class LandingViewState extends State<LandingView> {
   void _routeFirstView() async {
     developer.log('landingViewState - _routeFirstView()');
     //Get the shared preferences of the application
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     //Get the value of the userId key and if it is null set it to 0
-    //prefs.setInt('userId', 0);
-    //int userId = (prefs.getInt('userId') ?? 0);
-    /*
+    prefs.setInt('userId', 0);
+
     if (await Auth.isUserConnected()) {
       developer.log('LandingViewState - _routeFirstView() : User was already connected');
       // Go to HomeView
@@ -44,7 +44,6 @@ class LandingViewState extends State<LandingView> {
       // Go to LoginView
       Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/login'));
     }
-    */
     Navigator.pushNamedAndRemoveUntil(context, '/login', ModalRoute.withName('/login'));
   }
 

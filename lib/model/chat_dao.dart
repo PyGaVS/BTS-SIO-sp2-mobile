@@ -19,15 +19,12 @@ class ChatDAO {
     final resp = await Api.get(route: "/chat/$id", token: true);
     Map<String, dynamic> data = jsonDecode(resp.data);
     developer.log('ChatDAO - get()');
-    //developer.log(data['messages'].toString());
     List data_messages = List<Map<String, dynamic>>.from(data['messages']);
-    //developer.log(messages.toString());
     List<Message> messages = [];
     for(var message in data_messages){
-      messages.add(Message.fromJson(message)); //IL S'ARRÊTE LA
-      developer.log(message.toString());
+      messages.add(Message.fromJson(message));
     }
-    //data_messages.map<Message>((item) => Message.fromJson(item)); //IL S'ARRÊTE LA
+    //data_messages.map<Message>((item) => Message.fromJson(item)); //IL BUG LA
     Chat result = Chat(
       id: data['id'],
       name: data['name'],
