@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:selenium_chat/app.dart';
 import 'package:selenium_chat/view/component/nav_drawable_widget.dart';
 import 'package:selenium_chat/config/app_settings.dart';
 import 'dart:developer' as developer;
@@ -62,7 +64,7 @@ class ChatViewState extends State<ChatView> {
                   controller: _scrollController,
                   itemCount: snapshot.data!.messages!.length,
                   itemBuilder: (context, index){
-                    Color bgColor = index % 2 == 0 ? const Color.fromRGBO(50, 50, 50, 1) : AppSettings.BG_COLOR;
+                    Color bgColor = index % 2 == 0 ? AppSettings.BG_COLOR2 : AppSettings.BG_COLOR;
                     Color userColor = snapshot.data!.messages![index].getUser().getUsername() == Auth.username ?
                       Colors.amber : Colors.white;
                     return ListTile(
@@ -73,13 +75,41 @@ class ChatViewState extends State<ChatView> {
                         ),
                         subtitle: Text(
                             snapshot.data!.messages![index].content,
-                            style: const TextStyle(color: Colors.white))
+                            style: const TextStyle(color: Colors.white)),
+                        onLongPress: (){
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context){
+                                return Container(
+                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                                  decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                          colors: [AppSettings.BG_COLOR2, AppSettings.BG_COLOR],
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter
+                                      ),
+                                      borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                                  ),
+                                  child: Wrap(
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: const Icon(Icons.flag_sharp, color: Colors.red,),
+                                        title: const Text('Signaler', style: TextStyle(color: Colors.red)),
+                                        onTap: (){},
+                                      ),
+                                    ],
+                                  )
+                                );
+                              }
+                          );
+                        },
                     );
                   }
               );
             }
           }
       )
+      //bottomSheet: , ICIIII
     );
   }
 }

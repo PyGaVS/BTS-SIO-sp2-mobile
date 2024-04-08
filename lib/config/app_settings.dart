@@ -12,9 +12,10 @@ class AppSettings {
 
 
   //For the API REST consuming
-  static const String API_URI = '192.168.1.133';
+  static const String API_URI = '172.21.5.69';
   static const int API_PORT = 8000;
   static const String API_PATH = 'api';
   static const String API_VERSION = 'v1';
   static const Color BG_COLOR = Color.fromRGBO(38, 38, 38, 1);
+  static const Color BG_COLOR2 = Color.fromRGBO(50, 50, 50, 1);
 }
