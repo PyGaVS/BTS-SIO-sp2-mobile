@@ -5,7 +5,7 @@ class Chat {
   int id;
   String name;
   String createdAt;
-  List<Message>? messages;
+  List<Message> messages;
   String lastMessage;
 
   Chat({
@@ -13,7 +13,7 @@ class Chat {
     required this.name,
     required this.createdAt,
     required this.lastMessage,
-    this.messages,
+    required this.messages,
   });
 
   getId(){
@@ -35,6 +35,7 @@ class Chat {
         name: json['name'],
         createdAt: json['created_at'],
         //messages: json['messages'],
+        messages: [],
         lastMessage: json['last_message']['content'],
     );
   }

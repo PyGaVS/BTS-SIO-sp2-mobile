@@ -122,20 +122,24 @@ class ChatViewState extends State<ChatView> {
                     Expanded(
                       child: TextField(
                           controller: _tecContent,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           decoration: const InputDecoration(border: OutlineInputBorder()),
                       ),
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 6,
                     ),
                     IconButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          widget.hvm.addMessage({
+                            'content': _tecContent.text
+                          });
+                        },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                         ),
-                        icon: Icon(Icons.send_sharp)),
+                        icon: const Icon(Icons.send_sharp)),
                  ]
              )
            )

@@ -17,6 +17,7 @@ class LoginViewModel extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     User user = await UserDAO.user();
     Auth.username = user.username;
+    Auth.id = user.id;
     prefs.setString('username', user.username);
   }
 }

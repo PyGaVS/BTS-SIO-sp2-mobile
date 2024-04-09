@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Auth {
 
   static String username = '';
+  static int id = 0;
 
   static Future<bool> attempt({required Map<String, String> credentials}) async {
     developer.log('Auth - attempt() : \n Credentials : ${credentials.toString()}');
