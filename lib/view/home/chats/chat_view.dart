@@ -32,6 +32,7 @@ class ChatViewState extends State<ChatView> {
   //Properties
   ScrollController _scrollController = ScrollController();
   TextEditingController _tecContent = TextEditingController();
+  FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -53,8 +54,9 @@ class ChatViewState extends State<ChatView> {
       ),
       body: Column(
           children: <Widget>[
-            Expanded(
-              child: FutureBuilder<Chat>(
+            Expanded(child: RefreshIndicator(
+              onRefresh: () => widget.hvm.showChat(),
+              child : FutureBuilder<Chat>(
                 future: widget.hvm.chat,
                 builder: (context, snapshot) {
                 if (snapshot.data == null) {
@@ -113,7 +115,7 @@ class ChatViewState extends State<ChatView> {
                   shrinkWrap: true,
               );}
             }
-          )),
+          ))),
            Container(
              padding: const EdgeInsets.all(8.0),
              color: AppSettings.BG_COLOR,
@@ -122,6 +124,7 @@ class ChatViewState extends State<ChatView> {
                     Expanded(
                       child: TextField(
                           controller: _tecContent,
+                          focusNode: _focusNode,
                           style: const TextStyle(color: Colors.white),
                           decoration: const InputDecoration(border: OutlineInputBorder()),
                       ),
@@ -134,6 +137,9 @@ class ChatViewState extends State<ChatView> {
                           widget.hvm.addMessage({
                             'content': _tecContent.text
                           });
+
+                          _tecContent.clear();
+                          _focusNode.unfocus();
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
