@@ -6,13 +6,15 @@ import 'dart:developer' as developer;
 
 import 'package:selenium_chat/model/message_dao.dart';
 
+import '../model/message.dart';
+
 class HomeViewModel extends ChangeNotifier {
 
   late Future<List<Chat>> chats;
   late Future<Chat> chat;
   static int currentChatId = 0;
 
-  HomeViewModel(){}
+  //HomeViewModel(){}
 
   Future<void> initBrowChats() async{
     developer.log('initBrowChat()');
@@ -57,7 +59,4 @@ class HomeViewModel extends ChangeNotifier {
       return false;
     }
   }
-
-
-
 }

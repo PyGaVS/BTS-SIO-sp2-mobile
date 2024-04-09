@@ -32,7 +32,6 @@ class ChatDAO {
       messages: messages,
       lastMessage:data['last_message']['content'],
     );
-    developer.log("ChatDAO - get() : $result");
     return result;
   }
 }
