@@ -31,6 +31,7 @@ class ChatView extends StatefulWidget {
 class ChatViewState extends State<ChatView> {
   //Properties
   ScrollController _scrollController = ScrollController();
+  TextEditingController _tecContent = TextEditingController();
 
   @override
   void initState() {
@@ -50,13 +51,16 @@ class ChatViewState extends State<ChatView> {
           foregroundColor: Colors.white,
           title: Text(widget.chat.name)
       ),
-      body: FutureBuilder<Chat>(
-          future: widget.hvm.chat,
-          builder: (context, snapshot) {
-            if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator(color: Colors.white));
-            } else {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
+      body: Column(
+          children: <Widget>[
+            Expanded(
+              child: FutureBuilder<Chat>(
+                future: widget.hvm.chat,
+                builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                return const Center(child: CircularProgressIndicator(color: Colors.white));
+                } else {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
                 //S'exécute après la construction de la liste
                 _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
               });
@@ -104,12 +108,39 @@ class ChatViewState extends State<ChatView> {
                           );
                         },
                     );
-                  }
-              );
+                  },
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+              );}
             }
-          }
+          )),
+           Container(
+             padding: const EdgeInsets.all(8.0),
+             color: AppSettings.BG_COLOR,
+             child: Row(
+               children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                          controller: _tecContent,
+                          style: TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(border: OutlineInputBorder()),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    IconButton(
+                        onPressed: (){},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        ),
+                        icon: Icon(Icons.send_sharp)),
+                 ]
+             )
+           )
+          ]
       )
-      //bottomSheet: , ICIIII
     );
   }
 }
