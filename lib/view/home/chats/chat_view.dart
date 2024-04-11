@@ -56,15 +56,18 @@ class ChatViewState extends State<ChatView> {
           children: <Widget>[
             Expanded(child: RefreshIndicator(
               onRefresh: () => widget.hvm.showChat(),
-              child : FutureBuilder<Chat>(
-                future: widget.hvm.chat,
-                builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                return const Center(child: CircularProgressIndicator(color: Colors.white));
-                } else {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
+              child : ListenableBuilder(
+                listenable: widget.hvm,
+                builder: (BuildContext context, Widget? child){
+                  return FutureBuilder<Chat>(
+                    future: widget.hvm.chat,
+                    builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return const Center(child: CircularProgressIndicator(color: Colors.white));
+                    } else {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
                 //S'exécute après la construction de la liste
-                _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
               });
               return ListView.builder(
                   controller: _scrollController,
@@ -115,7 +118,9 @@ class ChatViewState extends State<ChatView> {
                   shrinkWrap: true,
               );}
             }
-          ))),
+          );
+                })
+            )),
            Container(
              padding: const EdgeInsets.all(8.0),
              color: AppSettings.BG_COLOR,
