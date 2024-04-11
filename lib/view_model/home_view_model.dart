@@ -50,8 +50,7 @@ class HomeViewModel extends ChangeNotifier {
     final message = await MessageDAO.create(params: params);
 
     if(message != null) {
-      final refreshChat = await chat;
-      refreshChat.messages.add(message);
+      await showChat();
       notifyListeners();
       return true;
     } else {
