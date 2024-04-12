@@ -19,12 +19,6 @@ class ChatBrowseView extends StatefulWidget {
 class ChatBrowseViewState extends State<ChatBrowseView> {
 
   @override
-  void initState() {
-    developer.log('ChatBrowseView - initState()');
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     developer.log('ChatBrowseViewState - build()');
     return Consumer<HomeViewModel>(builder : (_,hvm,__) => Expanded(

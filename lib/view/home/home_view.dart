@@ -62,7 +62,9 @@ class HomeViewState extends State<StatefulWidget> {
                 children: [ChatBrowseView()],
               ),
               Column(
-                children: []
+                children: [
+                  Text('Mes amis', style: TextStyle(color: Colors.white))
+                ]
               )
             ],
           ),

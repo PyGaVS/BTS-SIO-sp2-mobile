@@ -19,7 +19,7 @@ class LandingViewState extends State<LandingView> {
     developer.log('LandingViewState - initState()');
     super.initState();
     //Few seconds of duration for the view
-    Timer(const Duration(seconds: 2), _runApp);
+    Timer(const Duration(seconds: 1), _runApp);
   }
 
   _runApp() {
@@ -64,8 +64,6 @@ class LandingViewState extends State<LandingView> {
             color: Colors.white)
         )
     );
-
-    final applicationLogo = '';
 
     const circularIndicator = Center(child: CircularProgressIndicator(color: Colors.deepPurpleAccent));
 
