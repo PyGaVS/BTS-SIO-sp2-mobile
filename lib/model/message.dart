@@ -1,4 +1,3 @@
-import 'dart:developer' as developer;
 import 'user.dart';
 
 class Message {
@@ -13,19 +12,19 @@ class Message {
     required this.createdAt,
     required this.user});
 
-  User getUser(){
-    return user;
-  }
+  User getUser() => user;
+
+  int getId() => id;
 
   factory Message.fromJson(Map<String, dynamic> json) {
 
-    Map<String, dynamic> user_data = json['user'];
+    Map<String, dynamic> userData = json['user'];
 
     return Message(
         id: json['id'],
         content: json['content'],
         createdAt: json['created_at'],
-        user: User.fromJson(user_data)
+        user: User.fromJson(userData)
     );
   }
 }

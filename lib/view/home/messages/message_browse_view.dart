@@ -13,7 +13,7 @@ class MessageBrowseView extends StatefulWidget {
   const MessageBrowseView({Key? key, required this.hvm}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
+  State<MessageBrowseView> createState() {
     return MessageBrowseViewState();
   }
 }
@@ -61,7 +61,7 @@ class MessageBrowseViewState extends State<MessageBrowseView> {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (BuildContext context){
-                                    return MessageOptionsWrap(message: snapshot.data!.messages[index]);
+                                    return MessageOptionsWrap(message: snapshot.data!.messages[index], hvm: widget.hvm);
                                   }
                               );
                             },
