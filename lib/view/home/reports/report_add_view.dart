@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selenium_chat/config/app_settings.dart';
 import 'package:selenium_chat/view_model/home_view_model.dart';
 import 'package:selenium_chat/model/message.dart';
+import 'package:selenium_chat/config/app_settings.dart';
 import 'dart:developer' as developer;
 
 class ReportAddView extends StatefulWidget {
@@ -17,29 +18,50 @@ class ReportAddView extends StatefulWidget {
 class ReportAddViewState extends State<ReportAddView> {
 
   String _purpose = 'spam';
+  final TextEditingController _content = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
 
-    List<Widget> purposeColumn1 = [];
-    List<Widget> purposeColumn2 = [];
+    List<Widget> formColumn = [];
 
-    Map<String, String> purposes1 = {
+    sendReport({required String purpose, required String content}) async{
+      await widget.hvm.addReport({
+        'purpose': _purpose,
+        'content': content,
+        'message_id': widget.message.getId().toString()
+      }).then((success) {
+        if(success) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: AppSettings.BG_COLOR2,
+            content: Text("Rapport envoyé"),
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text("Erreur veuillez réessayer plus tard"),
+          ));
+        }
+      }).whenComplete((){
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      });
+    }
+
+    Map<String, String> purposes = {
       'spam': 'spam',
       'insult': 'insulte',
       'sensitive data': 'donnée sensible',
-    };
-
-    Map<String, String> purposes2 = {
       'threat': 'menace',
       'sexual assault': 'aggression sexuelle',
       'political opinion': 'opinion politique'
     };
 
-    purposes1.forEach((key, value) {
-      purposeColumn1.add(
+    purposes.forEach((key, value) {
+      formColumn.add(
         ListTile(
-          title: Text(value),
+          title: Text(value, style: const TextStyle(color: Colors.white)),
           leading: Radio<String>(
             value: key,
             groupValue: _purpose,
@@ -53,47 +75,54 @@ class ReportAddViewState extends State<ReportAddView> {
       );
     });
 
-    purposes2.forEach((key, value) {
-      purposeColumn2.add(
-          ListTile(
-              title: Text(value),
-              leading: Radio<String>(
-                value: key,
-                groupValue: _purpose,
-                onChanged: (String? value) {
-                  setState(() {
-                    _purpose = value ?? 'spam';
-                  });
+    formColumn.addAll([
+      Row(
+          children: <Widget>[
+            Expanded(
+              child: TextFormField(
+                controller: _content,
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.summarize_sharp, color: Colors.deepPurpleAccent),
+                  labelText: 'Détails',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (a){_scrollController.jumpTo(_scrollController.position.maxScrollExtent);},
+                onFieldSubmitted: (fieldText){
+                  developer.log('AAAAAAAAAAAA' + fieldText);
+                  sendReport(purpose: _purpose, content: fieldText);
                 },
-              )
-          )
-      );
-    });
 
-    developer.log(purposeColumn1.toString());
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            IconButton(
+                onPressed: (){
+                  sendReport(purpose: _purpose, content: _content.text);
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                ),
+                icon: const Icon(Icons.send_sharp)),
+          ]
+      )
+    ]);
 
     return AlertDialog(
       backgroundColor: AppSettings.BG_COLOR2,
+      scrollable: true,
       title: const Text('Signaler un message', style: TextStyle(color: Colors.white)),
-      content: Container(
-          padding: EdgeInsets.all(0),
-          child: Form(
-            child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Column(
-                        children: purposeColumn1,
-                      ),
-                      Column(
-                        children: purposeColumn2,
-                      )
-                    ],
-                  )
-                ]
-            ),
-          )
-      ),
+      content: SingleChildScrollView(
+            controller: _scrollController,
+              child: Form(
+                child: Column(
+                  children: formColumn
+                ),
+              )
+            )
     );
   }
 }

@@ -5,8 +5,7 @@ import 'package:selenium_chat/model/chat_dao.dart';
 import 'dart:developer' as developer;
 
 import 'package:selenium_chat/model/message_dao.dart';
-
-import '../model/message.dart';
+import 'package:selenium_chat/model/report_dao.dart';
 
 class HomeViewModel extends ChangeNotifier {
 
@@ -52,6 +51,16 @@ class HomeViewModel extends ChangeNotifier {
     if(message != null) {
       await showChat();
       notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> addReport(Map<String, String> params) async {
+    final report = await ReportDAO.create(params: params);
+
+    if(report != null){
       return true;
     } else {
       return false;

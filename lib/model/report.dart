@@ -18,4 +18,17 @@ class Report {
     required this.message
   });
 
+  factory Report.fromJson(Map<String, dynamic> json) {
+
+    Map<String, dynamic> message = json['message'];
+
+    return Report(
+        id: json['id'],
+        content: json['content'],
+        purpose: json['purpose'],
+        importanceRate: json['importance_rate'],
+        message: Message.fromJson(json['message'])
+    );
+  }
+
 }
