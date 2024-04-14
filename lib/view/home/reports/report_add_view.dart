@@ -89,7 +89,6 @@ class ReportAddViewState extends State<ReportAddView> {
                 ),
                 onChanged: (a){_scrollController.jumpTo(_scrollController.position.maxScrollExtent);},
                 onFieldSubmitted: (fieldText){
-                  developer.log('AAAAAAAAAAAA' + fieldText);
                   sendReport(purpose: _purpose, content: fieldText);
                 },
 

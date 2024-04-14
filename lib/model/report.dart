@@ -22,12 +22,13 @@ class Report {
 
     Map<String, dynamic> message = json['message'];
 
+    developer.log(message.toString());
     return Report(
         id: json['id'],
         content: json['content'],
         purpose: json['purpose'],
         importanceRate: json['importance_rate'],
-        message: Message.fromJson(json['message'])
+        message: Message.fromJson(message)
     );
   }
 
