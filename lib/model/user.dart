@@ -15,6 +15,8 @@ class User {
     required this.region,
   });
 
+  int getId() => id;
+
   String getUsername(){
     return username;
   }

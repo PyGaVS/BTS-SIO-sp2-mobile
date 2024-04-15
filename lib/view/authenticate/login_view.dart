@@ -116,7 +116,7 @@ class LoginViewState extends State<StatefulWidget> {
     );
 
     final space = Container(
-        height: 20
+        height: 19
     );
 
     return Scaffold(
