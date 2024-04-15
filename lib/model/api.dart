@@ -10,7 +10,6 @@ class Api {
   //Methods
   static Future<ApiResponse> get({required String? route, bool token=false}) async {
     Status status = Status.BUSY;
-    developer.log('Api - get()');
     if (route == null){
       developer.log('Api - get(): \n\tNo route specified !');
       return ApiResponse(Status.ERROR, null, 'No route specified');

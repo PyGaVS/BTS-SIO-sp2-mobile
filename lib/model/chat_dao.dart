@@ -18,7 +18,7 @@ class ChatDAO {
   static Future<Chat> get(int id) async {
     final resp = await Api.get(route: "/chat/$id", token: true);
     Map<String, dynamic> data = jsonDecode(resp.data);
-    developer.log('ChatDAO - get()');
+    //developer.log('ChatDAO - get()');
     List data_messages = List<Map<String, dynamic>>.from(data['messages']);
     List<Message> messages = [];
     for(var message in data_messages){

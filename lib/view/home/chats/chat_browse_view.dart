@@ -43,7 +43,7 @@ class ChatBrowseViewState extends State<ChatBrowseView> {
                     onTap: (){
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ChatView(hvm: hvm, chat: snapshot.data![index]))
+                          MaterialPageRoute(builder: (context) => ChatView(hvm: hvm, chat: snapshot.data![index]), maintainState: false)
                       );
 
                     },

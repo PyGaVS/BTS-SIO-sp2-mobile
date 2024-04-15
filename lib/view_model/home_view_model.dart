@@ -3,6 +3,7 @@ import 'package:selenium_chat/model/auth.dart';
 import 'package:selenium_chat/model/chat.dart';
 import 'package:selenium_chat/model/chat_dao.dart';
 import 'dart:developer' as developer;
+import 'dart:async';
 
 import 'package:selenium_chat/model/message_dao.dart';
 import 'package:selenium_chat/model/report_dao.dart';
@@ -12,6 +13,7 @@ class HomeViewModel extends ChangeNotifier {
   late Future<List<Chat>> chats;
   late Future<Chat> chat;
   static int currentChatId = 0;
+  late Timer _timer;
 
   //HomeViewModel(){}
 
@@ -31,12 +33,19 @@ class HomeViewModel extends ChangeNotifier {
     developer.log('initShowChat()');
     this.chat = ChatDAO.get(chat.id);
     currentChatId = chat.id;
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      this.showChat();
+    });
   }
 
   Future<void> showChat() async{
-    developer.log('showChat()');
+    //developer.log('showChat()');
     this.chat = ChatDAO.get(currentChatId);
     notifyListeners();
+  }
+
+  stopTimer(){
+    _timer.cancel();
   }
 
   getChats(){

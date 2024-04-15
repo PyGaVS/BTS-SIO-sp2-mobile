@@ -30,6 +30,12 @@ class ChatViewState extends State<ChatView> {
   final FocusNode _focusNode = FocusNode();
 
   @override
+  void dispose(){
+    widget.hvm.stopTimer();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     widget.hvm.initShowChat(widget.chat);
     developer.log('ChatViewState - build()');
