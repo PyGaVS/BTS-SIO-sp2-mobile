@@ -30,13 +30,15 @@ class Chat {
   }
 
   factory Chat.fromJson(Map<String, dynamic> json) {
+
+    String lastMessage = json['last_message'] != null ? json['last_message']['content'] : '';
     return Chat(
         id: json['id'],
         name: json['name'],
         createdAt: json['created_at'],
         //messages: json['messages'],
         messages: [],
-        lastMessage: json['last_message']['content'],
+        lastMessage: lastMessage,
     );
   }
 }

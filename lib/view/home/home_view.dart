@@ -68,6 +68,13 @@ class HomeViewState extends State<StatefulWidget> {
               )
             ],
           ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.deepPurpleAccent,
+            foregroundColor: Colors.white,
+            splashColor: Colors.deepPurpleAccent,
+            child: const Icon(Icons.add_comment),
+            onPressed: (){},
+          ),
           drawer: const NavDrawableWidget()
       )
     );
