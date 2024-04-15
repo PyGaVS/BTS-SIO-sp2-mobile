@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selenium_chat/model/auth.dart';
 import 'package:selenium_chat/model/chat.dart';
+import 'package:selenium_chat/model/user.dart';
 import 'package:selenium_chat/model/chat_dao.dart';
 import 'dart:developer' as developer;
 import 'dart:async';
@@ -12,6 +13,7 @@ class HomeViewModel extends ChangeNotifier {
 
   late Future<List<Chat>> chats;
   late Future<Chat> chat;
+
   static int currentChatId = 0;
   late Timer _timer;
 
@@ -27,6 +29,17 @@ class HomeViewModel extends ChangeNotifier {
     chats = ChatDAO.all();
     notifyListeners();
     //return ChatDAO.all();
+  }
+
+  Future<void> initBrowUsers() async{
+    developer.log('initBrowUsers()');
+    //chats = UserDAO.all();
+  }
+
+  Future<void> browUsers() async{
+    developer.log('browUsers()');
+    //chats = UserDAO.all();
+    notifyListeners();
   }
 
   Future<void> initShowChat(Chat chat) async{

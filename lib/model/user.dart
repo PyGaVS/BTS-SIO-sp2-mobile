@@ -15,7 +15,7 @@ class User {
     required this.region,
   });
 
-  getUsername(){
+  String getUsername(){
     return username;
   }
 

@@ -12,4 +12,14 @@ class UserDAO {
     User result = User.fromJson(data);
     return result;
   }
+
+  static Future<List<User>> all(String? search) async {
+    search = search ?? '';
+    final resp = await Api.get(route: "/users/$search", token: true);
+    List data = jsonDecode(resp.data);
+    developer.log("UserDAO - all($search)");
+
+    List<User> result = data.map<User>((item) => User.fromJson(item)).toList();
+    return result;
+  }
 }

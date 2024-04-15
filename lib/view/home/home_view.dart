@@ -73,7 +73,9 @@ class HomeViewState extends State<StatefulWidget> {
             foregroundColor: Colors.white,
             splashColor: Colors.deepPurpleAccent,
             child: const Icon(Icons.add_comment),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamedAndRemoveUntil(context, '/addChat', (route) => false);
+            },
           ),
           drawer: const NavDrawableWidget()
       )
