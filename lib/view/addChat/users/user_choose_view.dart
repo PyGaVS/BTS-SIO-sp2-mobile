@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:selenium_chat/app.dart';
 import 'package:selenium_chat/config/app_settings.dart';
 import 'dart:developer' as developer;
+import 'package:selenium_chat/view/home/chats/chat_add_view.dart';
 import 'package:selenium_chat/view_model/addChat_view_model.dart';
 import 'package:selenium_chat/model/auth.dart';
 import 'package:selenium_chat/model/chat.dart';
@@ -35,6 +36,7 @@ class UserChooseViewState extends State<UserChooseView> {
     developer.log('UserChooseViewState - build()');
     _acvm.initBrowUsers('');
     final TextEditingController _tecSearch = TextEditingController();
+    final TextEditingController _tecName = TextEditingController();
 
     return Scaffold(
       backgroundColor: AppSettings.BG_COLOR,
@@ -71,6 +73,10 @@ class UserChooseViewState extends State<UserChooseView> {
                         ),
                         IconButton(
                             onPressed: (){
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => ChatAddView(acvm: _acvm)
+                                );
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
