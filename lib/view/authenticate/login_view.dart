@@ -76,7 +76,7 @@ class LoginViewState extends State<StatefulWidget> {
           autofocus: true,
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.tag_sharp, color: Colors.grey),
-            labelText: 'Mot de passe',
+            labelText: 'Username',
             border: OutlineInputBorder(),
           ),
         ));
