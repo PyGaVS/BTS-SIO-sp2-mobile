@@ -22,7 +22,7 @@ class UserChooseView extends StatefulWidget {
 class UserChooseViewState extends State<UserChooseView> {
 
   late AddChatViewModel _acvm;
-  List<int> _id_users = [];
+  final List<int> _idUsers = [];
 
   @override
   void initState(){
@@ -36,7 +36,6 @@ class UserChooseViewState extends State<UserChooseView> {
     developer.log('UserChooseViewState - build()');
     _acvm.initBrowUsers('');
     final TextEditingController _tecSearch = TextEditingController();
-    final TextEditingController _tecName = TextEditingController();
 
     return Scaffold(
       backgroundColor: AppSettings.BG_COLOR,
@@ -75,7 +74,7 @@ class UserChooseViewState extends State<UserChooseView> {
                             onPressed: (){
                                 showModalBottomSheet(
                                   context: context,
-                                  builder: (context) => ChatAddView(acvm: _acvm)
+                                  builder: (context) => ChatAddView(acvm: _acvm, users: _idUsers)
                                 );
                             },
                             style: ButtonStyle(
@@ -106,14 +105,14 @@ class UserChooseViewState extends State<UserChooseView> {
                                                     snapshot.data![index].getUsername(),
                                                     style: const TextStyle(color: Colors.white)
                                                 ),
-                                                value: _id_users.contains(snapshot.data![index].getId()),
+                                                value: _idUsers.contains(snapshot.data![index].getId()),
                                                 activeColor: Colors.deepPurpleAccent,
                                                 onChanged: (bool? value){
                                                   setState(() {
                                                     if(value != null && value){
-                                                      _id_users.add(snapshot.data![index].getId());
+                                                      _idUsers.add(snapshot.data![index].getId());
                                                     } else {
-                                                      _id_users.remove(snapshot.data![index].getId());
+                                                      _idUsers.remove(snapshot.data![index].getId());
                                                     }
                                                   });
                                                 },

@@ -34,4 +34,11 @@ class ChatDAO {
     );
     return result;
   }
+
+  static Future<Chat?> create({required Map<String, String>? params}) async {
+    final resp = await Api.post(route: "/chat", bodyParams: params, token: true);
+    developer.log('ChatDAO - create() : ${resp.data}');
+    Chat chat = Chat.fromJson(jsonDecode(resp.data));
+    return chat;
+  }
 }

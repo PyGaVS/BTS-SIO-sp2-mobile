@@ -4,11 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:selenium_chat/config/app_settings.dart';
 import 'package:selenium_chat/view_model/addChat_view_model.dart';
 
+import '../../../model/user.dart';
+
 class ChatAddView extends StatefulWidget {
   //Properties
   final AddChatViewModel acvm;
+
+  final List<int> users;
   //Constructor
-  const ChatAddView({Key? key, required this.acvm}) : super(key: key);
+  const ChatAddView({Key? key, required this.acvm, required this.users}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -37,6 +41,10 @@ class ChatAddViewState extends State<ChatAddView> {
             ),
             ElevatedButton(
                 onPressed: (){
+                  widget.acvm.addChat({
+                    "name": _tecName.text,
+                    "users": widget.users.join(';')
+                  });
                 },
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),

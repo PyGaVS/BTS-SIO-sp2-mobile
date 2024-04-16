@@ -3,6 +3,7 @@ import 'package:selenium_chat/model/auth.dart';
 import 'package:selenium_chat/model/chat.dart';
 import 'package:selenium_chat/model/user.dart';
 import 'package:selenium_chat/model/user_dao.dart';
+import 'package:selenium_chat/model/chat_dao.dart';
 import 'dart:developer' as developer;
 
 class AddChatViewModel extends ChangeNotifier {
@@ -18,5 +19,15 @@ class AddChatViewModel extends ChangeNotifier {
     developer.log('browUsers()');
     users = UserDAO.all(search);
     notifyListeners();
+  }
+
+  Future<bool> addChat(Map<String, String> params) async {
+    final chat = await ChatDAO.create(params: params);
+
+    if(chat != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
