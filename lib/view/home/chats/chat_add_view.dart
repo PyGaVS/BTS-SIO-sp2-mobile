@@ -44,6 +44,20 @@ class ChatAddViewState extends State<ChatAddView> {
                   widget.acvm.addChat({
                     "name": _tecName.text,
                     "users": widget.users.join(';')
+                  }).then((success) {
+                    if(success) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text("Discussion créée !", style: TextStyle(color: Colors.white)),
+                      ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("Erreur veuillez réessayer plus tard", style: TextStyle(color: Colors.white)),
+                      ));
+                    }
+                  }).whenComplete((){
+                    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                   });
                 },
                 style: ButtonStyle(

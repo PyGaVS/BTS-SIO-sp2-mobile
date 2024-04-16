@@ -61,6 +61,9 @@ class UserChooseViewState extends State<UserChooseView> {
                           child: TextFormField(
                             controller: _tecSearch,
                             style: const TextStyle(color: Colors.white),
+                            onChanged: (text){
+                              _acvm.browUsers(text);
+                            },
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'Rechercher'
